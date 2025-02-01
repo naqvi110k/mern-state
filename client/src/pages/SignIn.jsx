@@ -4,6 +4,8 @@ import axios from "axios"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from 'react-redux'
 import {signInStart, signInSuccess, signInFailure} from "../redux/user/userSlice"
+import { OAuth } from '../Component/Oauth'
+
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ const SignIn = () => {
          '>
           {loading? "Loading..." : "Sign in"}
          </button>
+         <OAuth/>
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Donot have an account?</p>

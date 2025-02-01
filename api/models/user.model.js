@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    avatar : {
+        type: String,
+        default: "https://redcoraluniverse.com/img/default_profile_image.png"
+    },
 }, {timestamps: true
 
 })
