@@ -7,6 +7,7 @@ import Profile from './pages/Profile'
 import SignUp from './pages/SignUp'
 import Header from './Component/Header'
 import { Toaster } from 'react-hot-toast'
+import PrivateRoute from './Component/PrivateRoute'
 
 const App = () => {
   return (
@@ -17,7 +18,9 @@ const App = () => {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/about" element={<About />} />
+      <Route element={<PrivateRoute />} >
       <Route path="/profile" element={<Profile />} />
+      </Route>
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
     <Toaster/>
