@@ -107,7 +107,7 @@ export const google =async (req, res, next ) => {
                 username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-8) ,
                 email: req.body.email,
                 password: hashedPassword,
-                avatar : req.body.photo
+                avatar : req.body.avatar
             })
             await newUser.save()
             // Generate JWT token

@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import React from 'react';
-import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/user/userSlice';
+import { updateUserStart,updateUserSuccess,updateUserFailure,
+  deleteUserStart,deleteUserSuccess,deleteUserFailure
+ } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -74,6 +76,20 @@ const dispatch = useDispatch();
       }
     }
   };
+  const handleDeleteUser = async () => {
+    dispatch(deleteUserStart())
+    try {
+      await axios.delete(`/api/user/delete/${currentUser._id}`)
+      dispatch(deleteUserSuccess())
+      toast.success("User deleted successfully")
+    } catch (error) {
+      if (error.response) {
+        toast.error("Error: " + error.response.data.message);
+        dispatch(deleteUserFailure(error.response.data.message));
+      }
+    }
+
+  }
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -104,7 +120,8 @@ const dispatch = useDispatch();
 
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer'> Delete account </span>
+        <span onClick={handleDeleteUser}
+        className='text-red-700 cursor-pointer'> Delete account </span>
         <span className='text-red-700 cursor-pointer'> Sign out </span>
       </div>
   

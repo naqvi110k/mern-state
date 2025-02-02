@@ -13,11 +13,13 @@ export const OAuth = () => {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app); // Initialize auth with the app instance
 
-      const result = await signInWithPopup(auth, provider); // Correct order of arguments
+      const result = await signInWithPopup(auth, provider);
+      // Correct order of arguments
+      console.log(result);
 
       const response = await axios.post("/api/auth/google", {
         name: result.user.displayName,
-        photo: result.user.photoURL,
+        avatar: result.user.photoURL,
         email: result.user.email,
       });
       dispatch(signInSuccess(response.data.rest));
