@@ -4,7 +4,10 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import React from 'react';
 import { updateUserStart,updateUserSuccess,updateUserFailure,
-  deleteUserStart,deleteUserSuccess,deleteUserFailure
+  deleteUserStart,deleteUserSuccess,deleteUserFailure,
+  signOutUserStart,
+  signOutUserFailure,
+  signOutUserSuccess
  } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -74,6 +77,10 @@ const dispatch = useDispatch();
         toast.error("Error: " + error.response.data.message);
         dispatch(updateUserFailure(error.response.data.message));
       }
+      else {
+      dispatch(updateUserFailure(error)) 
+      toast.error("Error: " + error)
+      }
     }
   };
   const handleDeleteUser = async () => {
@@ -87,9 +94,26 @@ const dispatch = useDispatch();
         toast.error("Error: " + error.response.data.message);
         dispatch(deleteUserFailure(error.response.data.message));
       }
+      else {
+      dispatch(deleteUserFailure(error)) 
+      toast.error("Error: " + error)
+      }
     }
 
   }
+  const handleSignOut = async ()=>{
+    dispatch(signOutUserStart())
+   try {
+    const response = await axios.get("/api/auth/signout");
+    dispatch(signOutUserSuccess())
+    toast.success("Signed out successfully")  
+   } catch (error) {
+    toast.error("Error: " + error) 
+    dispatch(signOutUserFailure(error))
+   }
+
+  }
+
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -122,7 +146,8 @@ const dispatch = useDispatch();
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser}
         className='text-red-700 cursor-pointer'> Delete account </span>
-        <span className='text-red-700 cursor-pointer'> Sign out </span>
+        <span onClick={handleSignOut}
+        className='text-red-700 cursor-pointer'> Sign out </span>
       </div>
   
     </div>

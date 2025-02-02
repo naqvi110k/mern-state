@@ -7,7 +7,6 @@ import { OAuth } from '../Component/Oauth'
 const SignUp = () => {
   const navigate = useNavigate()
   const [formData, setFormData] =useState({})
-  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const handleChange = (e) =>{
     setFormData({...formData, [e.target.id]: e.target.value})
@@ -21,7 +20,6 @@ const SignUp = () => {
     .then(response =>{
       if (response.data){
         setLoading(false)
-        setError(null)
         navigate("/sign-in")
         toast.success("Signed Up successfully! Please Login!");
       }
@@ -29,6 +27,10 @@ const SignUp = () => {
     } catch (error) {
          if (error.response) {
           toast.error("Error: " + error.response.data.message);
+          setLoading(false)
+        }
+        else {
+          toast.error("Error: " + error);
           setLoading(false)
         }
       }
@@ -60,7 +62,6 @@ const SignUp = () => {
         <span className=' text-blue-700'>Sign in</span>
         </Link>
       </div>
-      {error && <p className='text-red-500'>{error}</p>}
     </div>
   )
 }
