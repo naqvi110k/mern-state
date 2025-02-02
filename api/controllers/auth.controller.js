@@ -71,7 +71,7 @@ export const signin = async (req, res, next) => {
 
         // Generate JWT token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
-        res.cookie("acess-token", token, {
+        res.cookie("acess_token", token, {
             httpOnly: true
 
         }) 
@@ -94,7 +94,7 @@ export const google =async (req, res, next ) => {
         if (user){
               // Generate JWT token
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
-            res.cookie("acess-token", token, {
+            res.cookie("acess_token", token, {
                 httpOnly: true
             }) 
             const {password: pass,...rest} = user._doc
@@ -112,7 +112,7 @@ export const google =async (req, res, next ) => {
             await newUser.save()
             // Generate JWT token
             const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET)
-            res.cookie("acess-token", token, {
+            res.cookie("acess_token", token, {
                 httpOnly: true
             }) 
             const {password: pass,...rest} = newUser._doc

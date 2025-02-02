@@ -8,7 +8,6 @@ import SignUp from './pages/SignUp'
 import Header from './Component/Header'
 import { Toaster } from 'react-hot-toast'
 import PrivateRoute from './Component/PrivateRoute'
-import NotFound from './pages/NotFound'
 
 const App = () => {
   return (
