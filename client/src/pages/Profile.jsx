@@ -1,20 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Cloudinary } from '@cloudinary/url-gen';
-import { AdvancedImage } from '@cloudinary/react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import React from 'react';
+import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 const Profile = () => {
-  const {currentUser} = useSelector((state) => state.user)
+  const {currentUser, loading , error} = useSelector((state) => state.user)
   const fileRef = useRef(null)
   const [file , setFile] = useState(undefined)
 const [formData , setFormData] = useState({})
-console.log(formData)
-  console.log(file)
-
+const dispatch = useDispatch();
   useEffect(()=>{
     if(file){
       handleFileUpload(file);
@@ -56,27 +54,53 @@ console.log(formData)
     });
   };
 
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.id]: e.target.value });
 
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(updateUserStart())
+    try {
+      const response = await axios.post(`/api/user/update/${currentUser._id}`, formData)
+      dispatch(updateUserSuccess(response.data.rest))
+      toast.success("Profile updated successfully")
+      
+    } catch (error) {
+      if (error.response) {
+        toast.error("Error: " + error.response.data.message);
+        dispatch(updateUserFailure(error.response.data.message));
+      }
+    }
+  };
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl  font font-semibold text-center my-7'>Profile</h1>
 
-      <form  className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <img src={formData.avatar || currentUser.avatar} alt="profile" onClick={()=>fileRef.current.click()}
          className=' mt-2 rounded-full h-24 w-24 object-cover 
         self-center cursor-pointer'/>
         <input onChange={(e)=> setFile(e.target.files[0])}
         type="file" ref={fileRef} hidden accept='image/*'/>
         <input 
-        type="text" placeholder='username' id='username'
+        type="text"  defaultValue={currentUser.username}
+        onChange={handleChange}
+        placeholder='username' id='username'
         className='border p-3 rounded-lg '/>
-        <input type="email" placeholder='email' id='email'
+        <input type="email" defaultValue={currentUser.email}
+        onChange={handleChange}
+         placeholder='email' id='email'
         className='border p-3 rounded-lg '/>
         <input type="password" placeholder='password' id='password' 
+        onChange={handleChange}
         className='border p-3 rounded-lg'/>
-        <button className='bg-slate-700 text-white p-3 rounded-lg
-        uppercase hover:opacity-95 disabled:opacity-80'> Update</button>
+        <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg
+        uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading ? 'Loading...': "update"}
+        </button>
 
       </form>
       <div className='flex justify-between mt-5'>

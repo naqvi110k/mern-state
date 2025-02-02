@@ -22,7 +22,7 @@ const SignIn = () => {
     dispatch(signInStart());
     try {
       const response = await axios.post("/api/auth/signin", formData);
-      dispatch(signInSuccess(response.data)); // Pass user data to Redux
+      dispatch(signInSuccess(response.data.rest)); // Pass user data to Redux
       navigate("/");
       toast.success("Signed in successfully!");
     } catch (error) {
