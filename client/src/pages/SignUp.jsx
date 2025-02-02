@@ -26,11 +26,12 @@ const SignUp = () => {
     })
     } catch (error) {
          if (error.response) {
-          toast.error("Error: " + error.response.data.message);
+          toast.error(error.response.data.message);
           setLoading(false)
         }
         else {
-          toast.error("Error: " + error);
+          toast.error("Error: " + error.message);
+          console.log(error)
           setLoading(false)
         }
       }

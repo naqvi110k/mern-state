@@ -49,7 +49,6 @@ const dispatch = useDispatch();
   
     axios.post( API_URL,formData)
     .then(response => {
-      console.log('File uploaded successfully:', response.data.secure_url);
       toast.success("Image uploaded successfully")
       setFormData({...formData, avatar: response.data.secure_url});
     })

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const OAuth = () => {
   const navigate = useNavigate();
@@ -14,8 +15,7 @@ export const OAuth = () => {
       const auth = getAuth(app); // Initialize auth with the app instance
 
       const result = await signInWithPopup(auth, provider);
-      // Correct order of arguments
-      console.log(result);
+      // Correct order of argument
 
       const response = await axios.post("/api/auth/google", {
         name: result.user.displayName,
@@ -23,9 +23,10 @@ export const OAuth = () => {
         email: result.user.email,
       });
       dispatch(signInSuccess(response.data.rest));
+      toast.success("Successfully signed in")
       navigate("/");
     } catch (error) {
-      console.error("Error during Google OAuth", error);
+      toast.error(error);
     }
   };
 
