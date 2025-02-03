@@ -14,11 +14,12 @@ import {Link} from "react-router-dom"
 
 
 const Profile = () => {
-  const {currentUser, loading , error} = useSelector((state) => state.user)
-  const fileRef = useRef(null)
-  const [file , setFile] = useState(undefined)
+const {currentUser, loading } = useSelector((state) => state.user)
+const fileRef = useRef(null)
+const [file , setFile] = useState(undefined)
 const [formData , setFormData] = useState({})
 const dispatch = useDispatch();
+
   useEffect(()=>{
     if(file){
       handleFileUpload(file);
