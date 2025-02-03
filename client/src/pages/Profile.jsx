@@ -10,6 +10,7 @@ import { updateUserStart,updateUserSuccess,updateUserFailure,
   signOutUserSuccess
  } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import {Link} from "react-router-dom"
 
 
 const Profile = () => {
@@ -23,6 +24,8 @@ const dispatch = useDispatch();
       handleFileUpload(file);
     }
   }, [file]);
+
+
   const handleFileUpload = (file) => {
 
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
@@ -140,6 +143,11 @@ const dispatch = useDispatch();
         uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading...': "update"}
         </button>
+
+        <Link className='bg-green-700 text-white p-3
+        rounded-lg text-center uppercase hover:opacity-95'  to ={"/create-listing"}>
+        Create  Listing
+        </Link>
 
       </form>
       <div className='flex justify-between mt-5'>
