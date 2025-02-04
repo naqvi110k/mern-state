@@ -274,8 +274,8 @@ const handleImageDelete = (index) =>{
      </div>
      {
       formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
-      <div   className="flex justify-between p-3 border items-center">
-        <img key={url}
+      <div key={url}  className="flex justify-between p-3 border items-center">
+        <img 
         src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
         <p>
           {
