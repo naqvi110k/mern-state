@@ -127,7 +127,18 @@ const [userListings, setuserListings] = useState([])
       console.log(error);
       toast.error("Error: " + error)
     }
+  } 
+
+ const handleListingDelete = async (listingId) =>{
+  try {
+    const res = axios.delete(`/api/listing/delete/${listingId}`)
+    toast.success("Listing deleted successfully")
+     setuserListings((prev) => prev.filter((listing) => listing._id !== listingId))
+  } catch (error) {
+    console.log(error);
+    toast.error("Error: " + error)
   }
+ }
 
 
   return (
@@ -193,7 +204,8 @@ const [userListings, setuserListings] = useState([])
             <p > {listing.name}</p>
             </Link>
             <div className="flex flex-col items-center">
-            <button className='text-red-700 uppercase'>
+            <button onClick={() => handleListingDelete(listing._id)} 
+            className='text-red-700 uppercase'>
             Delete
             </button>
             <button className='text-green-700 uppercase'>
