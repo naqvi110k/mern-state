@@ -113,12 +113,12 @@ const handleImageDelete = (index) =>{
    })
  }
  }
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e)  => {
     e.preventDefault();
     try {
       if(formData.imageUrls ==0) return toast.error("you have to submit at least one image");
       if (+formData.discountedPrice > +formData.regularPrice) return toast.error("Discounted price must be lower than regular price")
-    setLaoding(true);
+     setLaoding(true);
     const response = await  axios.post("/api/listing/create", formData)
     toast.success(response.data.message);
     setLaoding(false);
