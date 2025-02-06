@@ -237,7 +237,8 @@ const handleImageDelete = (index) =>{
             />
           <div className="flex flex-col items-center">
           <p>Regular price</p>
-          <span className="text-xs">($/Month)</span>
+          {formData.type == "sale"? "" :
+          <span className="text-xs">($/Month)</span>}
           </div>
          </div>
       {formData.offer &&
@@ -253,7 +254,8 @@ const handleImageDelete = (index) =>{
         />
         <div className="flex flex-col items-center">
         <p>Discounted price</p>
-       <span className="text-xs">($/Month)</span>
+        {formData.type == "sale"? "" :
+          <span className="text-xs">($/Month)</span>}
        </div>
       </div>
       }

@@ -121,11 +121,11 @@ const [userListings, setuserListings] = useState([])
   const handleShowListing = async () => {
     try {
       const response = await axios.get(`/api/user/listings/${currentUser._id}`)
-      console.log(response.data)  
+      if(response.data.length === 0) return toast.error("No listings found Please Create Listing")
       setuserListings(response.data)  
     } catch (error) {
       console.log(error);
-      toast.error("Error: " + error)
+      toast.error("Error: " + error.message)
     }
   } 
 
