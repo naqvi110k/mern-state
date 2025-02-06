@@ -12,12 +12,12 @@ export default function Contact({ listing }) {
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
-        const res = await fetch(`/api/user/${listing.useRef}`);
+        const res = await fetch(`/api/user/get/${listing.useRef}`);
         const data = await res.json();
+        if(data.message) return toast.error(data.message);
         setLandlord(data);
       } catch (error) {
-        toast.error(error.message)
-        console.log(error);
+        toast.error(error)
       }
     };
     fetchLandlord();
