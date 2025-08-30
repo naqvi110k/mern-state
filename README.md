@@ -55,20 +55,12 @@ Google OAuth
 
 Cloudinary for image handling
 
-📸 Screenshots
-
-(Add some screenshots or GIFs of your app here for better presentation 👌)
-
-🔗 Live Demo / Video
-
-🎥 YouTube Walkthrough
-
 📂 Installation & Setup
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/your-repo-name.git
+git clone https://github.com/naqvi110k/mern-state.git
 
 # Navigate to project folder
-cd your-repo-name
+mern-state
 
 # Install dependencies for backend
 cd backend
