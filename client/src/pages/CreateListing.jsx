@@ -131,174 +131,269 @@ const handleImageDelete = (index) =>{
 
   }  
   return (
-    <main className="p-3 max-w-4xl mx-auto">
-      <h1 className=" text-3xl font-semibold text-center my-7"> Create a Listing</h1>
-     <form  onSubmit={handleSubmit}
-     className="flex flex-col sm:flex-row gap-4" >
-     <div className="flex flex-col gap-4 flex-1">
-     <input
-      type="text" placeholder="Name" 
-      className="border p-3 
-      rounded-lg" 
-      id="name"
-       maxLength="62" 
-       minLength="10" 
-       required 
-       onChange={handleChange}
-       value={formData.name}
-       />
-      <textarea 
-      type="text" 
-      placeholder="Description" 
-      className="border p-3 rounded-lg"
-       id="description"
-       required
-       onChange={handleChange}
-       value={formData.description}
-       />
-      <input 
-      type="text" 
-      placeholder="Address"
-       className="border p-3 rounded-lg"
-        id="address"
-        required 
-        onChange={handleChange}
-        value={formData.address}
-        />
-      <div className="flex gap-6 flex-wrap">
-        <div className="flex gap-2">
-       <input type="checkbox" id="sale" className="w-5" 
-       onChange={handleChange} 
-       checked={formData.type === 'sale'}
-       />
-       <span>Sell</span>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">Create a Listing</h1>
+          <p className="text-gray-400">Add your property to the marketplace</p>
         </div>
-        <div className="flex gap-2">
-       <input type="checkbox" id="rent" className="w-5"
-       onChange={handleChange}
-       checked={formData.type === 'rent'}
-       />
-       <span>Rent</span>
+
+        {/* Main Form */}
+        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-xl">
+          <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
+            
+            {/* Left Column - Property Details */}
+            <div className="flex-1 space-y-6">
+              <div className="bg-gray-700/30 p-6 rounded-xl border border-gray-600">
+                <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2-7l2-2m0 0l2 2m-2-2v6" />
+                  </svg>
+                  Property Information
+                </h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Property Name</label>
+                    <input
+                      type="text" 
+                      placeholder="Enter property name" 
+                      className="w-full p-4 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                      id="name"
+                      maxLength="62" 
+                      minLength="10" 
+                      required 
+                      onChange={handleChange}
+                      value={formData.name}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                    <textarea 
+                      placeholder="Describe your property..." 
+                      className="w-full p-4 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 h-32 resize-none"
+                      id="description"
+                      required
+                      onChange={handleChange}
+                      value={formData.description}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Address</label>
+                    <input 
+                      type="text" 
+                      placeholder="Enter property address"
+                      className="w-full p-4 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      id="address"
+                      required 
+                      onChange={handleChange}
+                      value={formData.address}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Property Type & Features */}
+              <div className="bg-gray-700/30 p-6 rounded-xl border border-gray-600">
+                <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Property Type & Features
+                </h2>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                  <label className="flex items-center p-3 bg-gray-600/30 rounded-lg cursor-pointer hover:bg-gray-600/50 transition-colors duration-200">
+                    <input type="checkbox" id="sale" className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" 
+                           onChange={handleChange} 
+                           checked={formData.type === 'sale'}
+                    />
+                    <span className="ml-2 text-white">For Sale</span>
+                  </label>
+                  
+                  <label className="flex items-center p-3 bg-gray-600/30 rounded-lg cursor-pointer hover:bg-gray-600/50 transition-colors duration-200">
+                    <input type="checkbox" id="rent" className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                           onChange={handleChange}
+                           checked={formData.type === 'rent'}
+                    />
+                    <span className="ml-2 text-white">For Rent</span>
+                  </label>
+                  
+                  <label className="flex items-center p-3 bg-gray-600/30 rounded-lg cursor-pointer hover:bg-gray-600/50 transition-colors duration-200">
+                    <input type="checkbox" id="parking" className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" 
+                           onChange={handleChange}
+                           checked={formData.parking}
+                    />
+                    <span className="ml-2 text-white">Parking</span>
+                  </label>
+                  
+                  <label className="flex items-center p-3 bg-gray-600/30 rounded-lg cursor-pointer hover:bg-gray-600/50 transition-colors duration-200">
+                    <input type="checkbox" id="furnished" className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                           onChange={handleChange}
+                           checked={formData.furnished}
+                    />
+                    <span className="ml-2 text-white">Furnished</span>
+                  </label>
+                  
+                  <label className="flex items-center p-3 bg-gray-600/30 rounded-lg cursor-pointer hover:bg-gray-600/50 transition-colors duration-200">
+                    <input type="checkbox" id="offer" className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                           onChange={handleChange}
+                           checked={formData.offer}
+                    />
+                    <span className="ml-2 text-white">Special Offer</span>
+                  </label>
+                </div>
+
+                {/* Property Details */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Bedrooms</label>
+                    <input type="number" 
+                           id="bedrooms"
+                           min="1" max="10" 
+                           required 
+                           className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                           onChange={handleChange}
+                           value={formData.bedrooms}
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Bathrooms</label>
+                    <input type="number"
+                           id="bathrooms"
+                           min="1" max="10"
+                           required
+                           className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                           onChange={handleChange}
+                           value={formData.bathrooms}
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Regular Price {formData.type === "rent" && <span className="text-xs text-gray-400">($/Month)</span>}
+                    </label>
+                    <input type="number" 
+                           min="50"
+                           max="10000000"
+                           id="regularPrice" 
+                           required
+                           className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                           onChange={handleChange}
+                           value={formData.regularPrice}
+                    />
+                  </div>
+                  
+                  {formData.offer && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Discounted Price {formData.type === "rent" && <span className="text-xs text-gray-400">($/Month)</span>}
+                      </label>
+                      <input type="number" 
+                             min="0"
+                             max="10000000"
+                             id="discountedPrice" 
+                             required 
+                             className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                             onChange={handleChange}
+                             value={formData.discountedPrice}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Right Column - Images */}
+            <div className="flex-1 space-y-6">
+              <div className="bg-gray-700/30 p-6 rounded-xl border border-gray-600">
+                <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z" />
+                  </svg>
+                  Property Images
+                  <span className="ml-2 text-sm text-gray-400">({formData.imageUrls.length}/6)</span>
+                </h2>
+                <p className="text-sm text-gray-400 mb-4">The first image will be the cover photo</p>
+                
+                {/* Upload Section */}
+                <div className="mb-6">
+                  <div className="flex gap-4">
+                    <input 
+                      onChange={(e) => setFiles(e.target.files)} 
+                      className="flex-1 p-4 bg-gray-700/50 border border-gray-600 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700 transition-all duration-200"  
+                      type="file" 
+                      accept="image/jpeg,image/jpg,image/png"
+                      multiple 
+                      disabled={upload}
+                    />
+                    <button 
+                      disabled={upload || formData.imageUrls.length >= 6} 
+                      type="button" 
+                      onClick={handleImageSubmit}
+                      className="px-6 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-semibold hover:from-green-700 hover:to-green-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
+                    >
+                      {upload ? 'Uploading...' : 'Upload'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Image Gallery */}
+                {formData.imageUrls.length > 0 && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium text-white">Uploaded Images</h3>
+                    <div className="space-y-3">
+                      {formData.imageUrls.map((url, index) => (
+                        <div key={url} className="flex items-center gap-4 p-4 bg-gray-600/30 rounded-xl border border-gray-600">
+                          <div className="relative">
+                            <img 
+                              src={url} 
+                              alt={`Property image ${index + 1}`} 
+                              className="w-20 h-20 object-cover rounded-lg border-2 border-gray-500" 
+                            />
+                            {index === 0 && (
+                              <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                                Cover
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-white font-medium">Image {index + 1}</p>
+                            <p className="text-sm text-gray-400">
+                              {index === 0 ? 'Cover photo' : 'Gallery image'}
+                            </p>
+                          </div>
+                          <button 
+                            onClick={() => handleImageDelete(index)}
+                            type="button" 
+                            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <div className="mt-8">
+                  <button 
+                    disabled={loading || upload} 
+                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  >
+                    {loading ? 'Creating Listing...' : upload ? 'Wait for Upload...' : 'Create Listing'}
+                  </button>  
+                </div>
+              </div>
+            </div>    
+          </form>
         </div>
-        <div className="flex gap-2">
-       <input type="checkbox" id="parking" className="w-5" 
-       onChange={handleChange}
-       checked={formData.parking}
-       />
-       <span>Parking spot</span>
-        </div>
-        <div className="flex gap-2">
-       <input type="checkbox" id="furnished" className="w-5"
-       onChange={handleChange}
-       checked={formData.furnished}
-       />
-       <span>Furnished</span>
-        </div>
-        <div className="flex gap-2">
-       <input type="checkbox" id="offer" className="w-5"
-       onChange={handleChange}
-       checked={formData.offer}
-       />
-       <span>Offer</span>
       </div>
-      </div>
-      <div className="flex flex-wrap gap-6">
-        <div className="flex items-center gap-2">
-          <input type="number" 
-          id="bedrooms"
-           min="1" max="10" 
-          required 
-          className="p-3 border border-gray-300 rounded-lg" 
-           onChange={handleChange}
-           value={formData.bedrooms}
-           />
-          <p>Beds</p>
-         </div>
-        <div className="flex items-center gap-2">
-          <input type="number"
-           id="bathrooms"
-            min="1" max="10"
-            required
-            className="p-3 border border-gray-300 rounded-lg"
-            onChange={handleChange}
-            value={formData.bathrooms}
-             />
-          <p>Baths</p>
-         </div>
-        <div className="flex items-center gap-2">
-          <input type="number" 
-          min="50"
-          max="10000000"
-          id="regularPrice" 
-           required
-            className="p-3 border border-gray-300 rounded-lg" 
-            onChange={handleChange}
-            value={formData.regularPrice}
-            />
-          <div className="flex flex-col items-center">
-          <p>Regular price</p>
-          {formData.type == "sale"? "" :
-          <span className="text-xs">($/Month)</span>}
-          </div>
-         </div>
-      {formData.offer &&
-       <div className="flex items-center gap-2">
-       <input type="number" 
-       min="0"
-       max="10000000"
-       id="discountedPrice" 
-        required 
-        className="p-3 border border-gray-300 rounded-lg" 
-        onChange={handleChange}
-        value={formData.discountedPrice}
-        />
-        <div className="flex flex-col items-center">
-        <p>Discounted price</p>
-        {formData.type == "sale"? "" :
-          <span className="text-xs">($/Month)</span>}
-       </div>
-      </div>
-      }
-      </div>
-     </div> 
-     <div className="flex flex-col flex-1 gap-4">
-     <p className="font-semibold">Images:
-     <span className="font-normal text-gray-600 ml-2"> The first images will be the cover (max 6)</span>
-     </p>
-     <div className="flex gap-4">
-      <input onChange={(e)=> setFiles(e.target.files)} 
-       className="p-3 border border-gray-300 rounded w-full"  type="file" id="images/*" multiple />
-      <button disabled={upload} type="button" onClick={handleImageSubmit}
-      className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg 
-      disabled:opacity-80">
-         {upload? 'Uploading...' : 'Upload'}
-      </button>
-     </div>
-     {
-      formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
-      <div key={url}  className="flex justify-between p-3 border items-center">
-        <img 
-        src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
-        <p>
-          {
-            formData.imageUrls.indexOf(url) === 0? 'Image 1' : `Image ${formData.imageUrls.indexOf(url) + 1}`
-          }
-        </p>
-        <button onClick={() => handleImageDelete(index)}
-        type="button" className="p-3 text-red-700
-        rounded-lg uppercase hover:opacity-75">Delete</button>
-        </div>
-   
-      ))
-     }
-     <button disabled={loading ||upload} className="p-3  bg-slate-700 text-white rounded-lg uppercase
-     hover:opacity-95 disabled:opacity-80">
-      {
-        loading? 'Creating Listing...' : 'Create Listing'
-      }
-      </button>  
-      </div>    
-     </form>
-    </main>
+    </div>
   )
 }
