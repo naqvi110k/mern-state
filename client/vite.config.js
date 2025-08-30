@@ -7,7 +7,7 @@ export default defineConfig({
     host: '0.0.0.0', // Allows access from your local network
     proxy: {
       "/api": {
-        target: 'http://192.168.0.154:3000/', // Backend server address
+        target: 'http://localhost:3000/', // Backend server address
         changeOrigin: true,
        
       }
