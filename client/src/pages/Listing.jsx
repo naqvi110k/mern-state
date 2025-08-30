@@ -15,69 +15,61 @@ import {
   FaBed,
   FaChair,
   FaMapMarkerAlt,
-  FaParking,
-  FaShare,
+  FaShareAlt,
   FaHeart,
   FaRegHeart,
   FaArrowLeft,
-  FaCalendar,
-  FaRuler,
-  FaHome,
-  FaPhone,
-  FaEnvelope,
-  FaEye,
-  FaClock,
-  FaWifi,
-  FaSnowflake,
   FaCar,
-  FaTree,
+  FaEye,
 } from 'react-icons/fa';
 
-// Lazy load Contact component for better performance
+// Lazy load Contact component
 const Contact = lazy(() => import("../Component/Contact"));
 
-// Constants for better maintainability
-const DARK_BLUE_BG = '#3B4856';
+const PAGE_BG = 'rgb(28, 44, 60)';
+const CARD_BG = 'rgba(46, 62, 81, 0.8)';
 
-// Loading skeleton component
+// Loading skeleton
 const LoadingSkeleton = React.memo(() => (
-  <div className="animate-pulse min-h-screen" style={{ backgroundColor: DARK_BLUE_BG }}>
-    <div className="h-14 bg-slate-700/30 border-b border-slate-600 mb-6"></div>
-    <div className="h-[400px] md:h-[600px] bg-gradient-to-r from-slate-600/50 to-slate-500/50 mx-4 rounded-xl mb-6 relative overflow-hidden"></div>
-    <div className="max-w-4xl mx-auto px-4 mb-8">
-      <div className="grid grid-cols-6 md:grid-cols-10 gap-3">
-        {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className="h-12 bg-slate-600/50 rounded-lg"></div>
+  <div className="animate-pulse min-h-screen" style={{ backgroundColor: PAGE_BG }}>
+    <div className="h-16 bg-slate-700/30 border-b border-slate-600 mb-6"></div>
+    <div className="h-[400px] md:h-[600px] bg-slate-600/50 w-full"></div>
+    <div className="max-w-5xl mx-auto p-4">
+      <div className="h-8 bg-slate-600/50 rounded-lg mb-4"></div>
+      <div className="h-6 bg-slate-600/50 rounded-lg mb-6 w-1/2"></div>
+      <div className="h-12 bg-slate-600/50 rounded-lg mb-6 w-1/4"></div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="h-20 bg-slate-600/50 rounded-lg"></div>
         ))}
       </div>
-    </div>
-    <div className="max-w-4xl mx-auto px-4">
-      <div className="bg-slate-700/20 p-8 rounded-2xl border border-slate-600/50">
-        <div className="flex flex-col lg:flex-row justify-between gap-6 mb-8">
-          <div className="flex-1">
-            <div className="h-10 bg-slate-600/50 rounded-lg w-3/4 mb-4"></div>
-            <div className="h-5 bg-slate-600/50 rounded-lg w-1/2 mb-6"></div>
-            <div className="flex gap-3">
-              <div className="h-10 bg-slate-600/50 rounded-full w-32"></div>
-              <div className="h-10 bg-slate-600/50 rounded-full w-32"></div>
-            </div>
-          </div>
-          <div className="w-full lg:w-80 h-32 bg-slate-600/50 rounded-xl"></div>
-        </div>
-      </div>
+      <div className="h-6 bg-slate-600/50 rounded-lg mb-4"></div>
+      <div className="h-6 bg-slate-600/50 rounded-lg mb-4"></div>
+      <div className="h-6 bg-slate-600/50 rounded-lg mb-4 w-3/4"></div>
+      <div className="h-10 bg-slate-600/50 rounded-lg mb-6 w-1/3"></div>
     </div>
   </div>
 ));
 
-// Error message component
+// Error message
 const ErrorMessage = React.memo(({ onRetry }) => (
-  <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: DARK_BLUE_BG }}>
-    <div className="max-w-lg mx-auto text-center">
-      <h2 className="text-3xl font-bold text-white mb-3">Property Not Found</h2>
-      <p className="text-slate-300 mb-8">We couldn't locate this property.</p>
+  <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: PAGE_BG }}>
+    <div className="max-w-lg mx-auto text-center p-8 bg-slate-800/70 rounded-xl shadow-lg">
+      <h2 className="text-3xl font-bold text-white mb-4">Property Not Found</h2>
+      <p className="text-slate-300 mb-6">We couldn't locate this property.</p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <button onClick={onRetry} className="bg-blue-600 text-white px-6 py-3 rounded-lg">Try Again</button>
-        <button onClick={() => window.history.back()} className="bg-slate-600 text-white px-6 py-3 rounded-lg">Go Back</button>
+        <button
+          onClick={onRetry}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition"
+        >
+          Try Again
+        </button>
+        <button
+          onClick={() => window.history.back()}
+          className="bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-500 transition"
+        >
+          Go Back
+        </button>
       </div>
     </div>
   </div>
@@ -86,12 +78,16 @@ const ErrorMessage = React.memo(({ onRetry }) => (
 // Price display
 const PriceDisplay = React.memo(({ listing }) => {
   const price = useMemo(() => listing.offer ? listing.discountedPrice : listing.regularPrice, [listing]);
+
   return (
-    <div className="relative bg-slate-800/60 p-8 rounded-2xl shadow-2xl">
-      <div className="flex items-baseline gap-3 mb-4">
-        <span className="text-4xl font-black text-white">${Number(price).toLocaleString("en-US")}</span>
-        {listing.type === 'rent' && <span className="text-slate-300 text-lg font-medium">/month</span>}
-      </div>
+    <div className="bg-slate-800/70 p-4 rounded-lg shadow-md inline-block">
+      <span className="text-3xl font-bold text-white">${Number(price).toLocaleString("en-US")}</span>
+      {listing.type === 'rent' && <span className="text-slate-300 ml-2">/month</span>}
+      {listing.offer && (
+        <span className="block text-sm text-green-400 mt-1">
+          Discounted from ${Number(listing.regularPrice).toLocaleString("en-US")}
+        </span>
+      )}
     </div>
   );
 });
@@ -106,17 +102,58 @@ const PropertyFeatures = React.memo(({ listing }) => {
   ], [listing]);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
       {features.map((feature, i) => (
-        <div key={i} className="p-6 rounded-xl bg-slate-700 text-center">
+        <div
+          key={i}
+          className="flex flex-col items-center justify-center p-4 rounded-lg bg-slate-700/70 shadow-md transition-transform hover:scale-105"
+        >
           <feature.icon className="text-white text-xl mb-2" />
-          <div className="font-bold text-white">{feature.value}</div>
+          <div className="font-semibold text-white">{feature.value}</div>
           <div className="text-slate-300 text-sm">{feature.label}</div>
         </div>
       ))}
     </div>
   );
 });
+
+// Actions row
+const ActionsRow = ({ isFavorite, onToggleFavorite, views }) => (
+  <div className="flex flex-wrap gap-3 mt-6">
+    <button
+      onClick={() => {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => toast.success("Link copied to clipboard!"))
+          .catch(() => toast.error("Failed to copy link"));
+      }}
+      className="flex items-center gap-2 px-4 py-2 bg-slate-700/80 text-white rounded-lg hover:bg-slate-600 transition"
+    >
+      <FaShareAlt /> Share
+    </button>
+    <button
+      onClick={onToggleFavorite}
+      className="flex items-center gap-2 px-4 py-2 bg-slate-700/80 text-white rounded-lg hover:bg-slate-600 transition"
+    >
+      {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
+      {isFavorite ? "Saved" : "Save"}
+    </button>
+    <div className="flex items-center gap-2 px-4 py-2 bg-slate-700/80 text-white rounded-lg">
+      <FaEye /> {views} {views === 1 ? 'view' : 'views'}
+    </div>
+  </div>
+);
+
+// Back button
+const BackButton = ({ navigate }) => (
+  <div className="p-4">
+    <button
+      onClick={() => navigate(-1)}
+      className="text-white flex items-center gap-2 hover:underline transition"
+    >
+      <FaArrowLeft /> Back to Listings
+    </button>
+  </div>
+);
 
 const Listing = () => {
   const [listing, setListing] = useState(null);
@@ -126,22 +163,26 @@ const Listing = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [views, setViews] = useState(0);
 
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
   const navigate = useNavigate();
 
-  // ✅ Only keep ONE fetchListing
   const fetchListing = useCallback(async () => {
     try {
       setLoading(true);
       setError(false);
-
-      const res = await axios.get(`/api/listing/get/${params.listingId}`, { timeout: 10000 });
-      setListing(res.data);
+      const res = await axios.get(`/api/listing/get/${params.listingId}`);
+      if (res.data) {
+        setListing(res.data);
+        setViews(res.data.views || 0);
+      } else {
+        throw new Error("No data received");
+      }
     } catch (error) {
       console.error('Error fetching listing:', error);
-      toast.error("Failed to load property details.");
+      toast.error(error.response?.data?.message || "Failed to load property details.");
       setError(true);
     } finally {
       setLoading(false);
@@ -151,67 +192,131 @@ const Listing = () => {
   useEffect(() => {
     if (params.listingId) {
       fetchListing();
+      axios.post(`/api/listing/views/${params.listingId}`).catch(() => {});
     }
-  }, [fetchListing]);
+  }, [fetchListing, params.listingId]);
 
-  const imageUrls = useMemo(() => listing?.imageUrls || [], [listing?.imageUrls]);
+  const imageUrls = useMemo(() => listing?.imageUrls || [], [listing]);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    toast.success(!isFavorite ? "Added to favorites" : "Removed from favorites");
+  };
 
   if (loading) return <LoadingSkeleton />;
   if (error || !listing) return <ErrorMessage onRetry={fetchListing} />;
 
   return (
-    <main className="min-h-screen relative overflow-hidden" style={{ backgroundColor: DARK_BLUE_BG }}>
-      {/* Back button */}
-      <div className="sticky top-0 bg-slate-800/40 p-4">
-        <button onClick={() => navigate(-1)} className="text-white flex items-center gap-2">
-          <FaArrowLeft /> Back to listings
-        </button>
-      </div>
+    <div className="min-h-screen" style={{ backgroundColor: PAGE_BG }}>
+      <BackButton navigate={navigate} />
 
-      {/* Image gallery */}
-      <div className="relative">
-        <Swiper
-          modules={[Navigation, Pagination, Thumbs]}
-          navigation
-          pagination={{ clickable: true }}
-          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-          onSlideChange={(swiper) => setActiveImageIndex(swiper.activeIndex)}
-          className="h-[400px] md:h-[600px]"
-        >
-          {imageUrls.map((url, index) => (
-            <SwiperSlide key={index}>
-              <img src={url} alt={`${listing.name} - ${index}`} className="w-full h-full object-cover" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {/* Full-width image gallery */}
+      <div className="relative w-full">
+        {imageUrls.length > 0 ? (
+          <>
+            <Swiper
+              modules={[Navigation, Pagination, Thumbs, FreeMode]}
+              navigation
+              pagination={{ clickable: true }}
+              thumbs={{ swiper: thumbsSwiper }}
+              onSlideChange={(swiper) => setActiveImageIndex(swiper.activeIndex)}
+              className="h-[400px] md:h-[600px] w-full"
+            >
+              {imageUrls.map((url, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={url}
+                    alt={`${listing.name} - ${index + 1}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/placeholder-image.jpg";
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-      {/* Property details */}
-      <div className="max-w-5xl mx-auto p-6">
-        <h1 className="text-4xl font-bold text-white">{listing.name}</h1>
-        <div className="flex items-center gap-2 text-slate-300 mb-4">
-          <FaMapMarkerAlt /> {listing.address}
-        </div>
-        <PriceDisplay listing={listing} />
-        <PropertyFeatures listing={listing} />
-        <p className="text-slate-300 mt-6">{listing.description}</p>
-
-        {/* Contact */}
-        {currentUser && listing.userRef !== currentUser._id && (
-          <div className="mt-8">
-            {!contact ? (
-              <button onClick={() => setContact(true)} className="bg-blue-600 text-white px-6 py-3 rounded-lg">
-                Contact Owner
-              </button>
-            ) : (
-              <Suspense fallback={<div>Loading...</div>}>
-                <Contact listing={listing} onClose={() => setContact(false)} />
-              </Suspense>
-            )}
+            <div className="max-w-7xl mx-auto px-4">
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="thumbs-swiper mt-2 rounded-lg overflow-hidden"
+              >
+                {imageUrls.map((url, index) => (
+                  <SwiperSlide key={index} className="cursor-pointer">
+                    <img
+                      src={url}
+                      alt={`${listing.name} - ${index + 1}`}
+                      className={`w-full h-20 object-cover ${activeImageIndex === index ? 'border-2 border-blue-500' : ''}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/placeholder-thumbnail.jpg";
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </>
+        ) : (
+          <div className="h-[400px] md:h-[600px] flex items-center justify-center bg-slate-700/50 text-white">
+            No images available
           </div>
         )}
       </div>
-    </main>
+
+      {/* Property details card */}
+      <div className="max-w-5xl mx-auto p-6">
+        <div className="bg-slate-800/70 p-6 rounded-xl shadow-lg">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <h1 className="text-3xl font-bold text-white mb-2 md:mb-0">{listing.name}</h1>
+            <PriceDisplay listing={listing} />
+          </div>
+
+          <div className="flex items-center gap-2 text-slate-300 mb-6">
+            <FaMapMarkerAlt className="text-blue-400" />
+            <span>{listing.address}</span>
+          </div>
+
+          <PropertyFeatures listing={listing} />
+
+          <ActionsRow
+            isFavorite={isFavorite}
+            onToggleFavorite={toggleFavorite}
+            views={views}
+          />
+
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold text-white mb-2">Description</h2>
+            <p className="text-slate-300 leading-relaxed">
+              {listing.description || "No description available"}
+            </p>
+          </div>
+
+          {currentUser && listing.userRef !== currentUser._id && (
+            <div className="mt-8 flex justify-center">
+              {!contact ? (
+                <button
+                  onClick={() => setContact(true)}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition"
+                >
+                  Contact Owner
+                </button>
+              ) : (
+                <Suspense fallback={<div className="text-white">Loading contact form...</div>}>
+                  <Contact listing={listing} onClose={() => setContact(false)} />
+                </Suspense>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
